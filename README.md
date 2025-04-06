@@ -12,3 +12,10 @@ git remote -v
 git pull origin main
 
 '''
+'''
+###
+conda create -p env python==3.13 -y  
+conda activate env/
+
+####
+'''
