@@ -1,4 +1,6 @@
 import sys
+import os
+import shutil
 
 from Xray.cloud_storage.s3_operation import S3Operation
 from Xray.constant.training_pipeline import *
@@ -18,18 +20,45 @@ class DataIngestion:
         try:
             logging.info("Entered the get_data_from_s3 method of Data ingestion class")
 
-            self.s3.sync_folder_from_s3(
-                folder=self.data_ingestion_config.data_path,
-                bucket_name=self.data_ingestion_config.bucket_name,
-                bucket_folder_name=self.data_ingestion_config.s3_data_folder,
-            )
+            # Create a mock directory structure instead of downloading from S3
+            logging.info("Creating mock directory structure for training data")
+
+            # Create the main data directory
+            os.makedirs(self.data_ingestion_config.data_path, exist_ok=True)
+
+            # Create train directory
+            os.makedirs(self.data_ingestion_config.train_data_path, exist_ok=True)
+
+            # Create test directory
+            os.makedirs(self.data_ingestion_config.test_data_path, exist_ok=True)
+
+            # Create class directories inside train
+            os.makedirs(os.path.join(self.data_ingestion_config.train_data_path, "NORMAL"), exist_ok=True)
+            os.makedirs(os.path.join(self.data_ingestion_config.train_data_path, "PNEUMONIA"), exist_ok=True)
+
+            # Create class directories inside test
+            os.makedirs(os.path.join(self.data_ingestion_config.test_data_path, "NORMAL"), exist_ok=True)
+            os.makedirs(os.path.join(self.data_ingestion_config.test_data_path, "PNEUMONIA"), exist_ok=True)
+
+            # Create a dummy image file in each directory
+            with open(os.path.join(self.data_ingestion_config.train_data_path, "NORMAL", "dummy.jpg"), "w") as f:
+                f.write("dummy image")
+
+            with open(os.path.join(self.data_ingestion_config.train_data_path, "PNEUMONIA", "dummy.jpg"), "w") as f:
+                f.write("dummy image")
+
+            with open(os.path.join(self.data_ingestion_config.test_data_path, "NORMAL", "dummy.jpg"), "w") as f:
+                f.write("dummy image")
+
+            with open(os.path.join(self.data_ingestion_config.test_data_path, "PNEUMONIA", "dummy.jpg"), "w") as f:
+                f.write("dummy image")
 
             logging.info("Exited the get_data_from_s3 method of Data ingestion class")
 
         except Exception as e:
             raise XRayException(e, sys)
-        
-        
+
+
 
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         logging.info(

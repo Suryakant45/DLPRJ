@@ -9,7 +9,7 @@ TIMESTAMP: datetime = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 # Data Ingestion Constants
 ARTIFACT_DIR: str = "artifacts"
 
-BUCKET_NAME: str = "lungxray24"
+BUCKET_NAME: str = "lungxray49"
 
 S3_DATA_FOLDER: str = "data"
 
