@@ -47,3 +47,6 @@ pip install -r requirements_dev.txt
 ```bash
 python main.py
 ```
+
+
+
