@@ -82,7 +82,7 @@ class ModelPusher:
             logging.info("Pushing bento image to ECR")
 
             push_result = os.system(
-                f"docker push 136566696263.dkr.ecr.us-east-1.amazonaws.com/{self.model_pusher_config.bentoml_ecr_image}:latest"
+                f"docker push 841807079254.dkr.ecr.ap-southeast-2.amazonaws.com/{self.model_pusher_config.bentoml_ecr_image}:latest"
             )
 
             if push_result != 0:
